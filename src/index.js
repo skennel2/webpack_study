@@ -1,14 +1,16 @@
 import _ from 'lodash';
-import './style.css';
 
-function component() {
-    const element = document.createElement('div');
-  
-    // Lodash, currently included via a script, is required for this line to work
-    element.innerHTML = _.join(['Hello', 'webpack'], ' ');
-    element.classList.add('hello');
-
-    return element;
+function getComponent(){
+    // /* webpackChunkName: "print" */ 이주석을 붙임으로써 print 모듈에 대한 chunk파일이 생성된다.
+    return import(/* webpackChunkName: "print" */'./print').then(({default : func})=>{
+        const element = document.createElement('div');
+        element.innerHTML = _.join(['Hello', 'webpack'], ' ');
+        element.onclick = func;
+        return element;
+    });
 }
-  
-document.body.appendChild(component());
+
+getComponent().then(component=> {
+    document.body.appendChild(component);
+});
+
