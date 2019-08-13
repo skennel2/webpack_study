@@ -1,20 +1,25 @@
 const path = require('path');
+const htmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
-    entry : './src/index.js',
+    entry : {
+        app : './src/index.js',
+        print : './src/print.js'
+    },
+    plugins : [
+        new CleanWebpackPlugin(),
+        new htmlWebpackPlugin({
+            title : 'Output Management'
+        })
+    ],
     output : {
-        filename : 'bundle.js',
+        filename : '[name].bundle.js',
         path : path.resolve(__dirname, 'dist')
     },
-    module : {
-        rules : [
-           {
-               test : /\.css$/,
-               use : [
-                   'style-loader',
-                   'css-loader'
-               ]
-           } 
-        ]
+    optimization : {
+        splitChunks : {
+            chunks : 'all'
+        }
     }
 }
