@@ -3,19 +3,28 @@ const htmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
-    entry : {
-        app : './src/index.js',
-        print : './src/print.js'
-    },
+    entry : './src/index.js',
     plugins : [
         new CleanWebpackPlugin(),
         new htmlWebpackPlugin({
-            title : 'Output Management'
+            title : 'Caching'
         })
     ],
     output : {
-        filename : '[name].bundle.js',
-        //chunkFilename : '[name].bundle.js',
+        filename : '[name].[contenthash].js',
         path : path.resolve(__dirname, 'dist')
+    },
+    optimization : {
+        moduleIds : 'hashed',
+        runtimeChunk : 'single',
+        splitChunks : {
+            cacheGroups : {
+                vender : {
+                    test : /[\\/]node_modules[\\/]/,
+                    name : 'venders',
+                    chunks : 'all'
+                }
+            }
+        }
     }
 }
