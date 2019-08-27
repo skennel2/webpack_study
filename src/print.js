@@ -1,7 +1,5 @@
-import _ from 'lodash';
+console.log('The print.js module has loaded! See the network tab in dev tools...');
 
-export default function printMe(){
-    const message = _.join(['Another', 'module', 'loaded!!!!'], ' ');
-
-    alert(message);
-}
+export default () => {
+  console.log('Button Clicked: Here\'s "some text"!');
+};

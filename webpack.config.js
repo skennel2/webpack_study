@@ -10,21 +10,9 @@ module.exports = {
             title : 'Caching'
         })
     ],
-    output : {
-        filename : '[name].[contenthash].js',
-        path : path.resolve(__dirname, 'dist')
-    },
-    optimization : {
-        moduleIds : 'hashed',
-        runtimeChunk : 'single',
-        splitChunks : {
-            cacheGroups : {
-                vender : {
-                    test : /[\\/]node_modules[\\/]/,
-                    name : 'venders',
-                    chunks : 'all'
-                }
-            }
-        }
+    output: {
+        filename: '[name].bundle.js', // 엔트리 파일의 파일명을 말한다.
+        chunkFilename: '[name].bundle.js', // 청크 파일의 파일명을 말한다.
+        path: path.resolve(__dirname, 'dist')
     }
 }
